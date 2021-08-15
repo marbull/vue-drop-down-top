@@ -24,6 +24,36 @@
   </header>
 </template>
 
-<script setup></script>
+<script setup>
+  import { onMounted } from '@vue/runtime-core';
+  import $ from 'jquery';
+
+  onMounted(() => {
+    function mediaQueriesWin() {
+      const width = $(window).width();
+      if (width <= 768) {
+        $('.has-child>a').off('click');
+        $('.has-child>a').on('click', function () {
+          const parentElem = $(this).parent();
+          $(parentElem).toggleClass('active');
+          $(parentElem).children('ul').stop().slideToggle(500);
+        });
+        return false;
+      } else {
+        $('.has-child>a').off('click');
+        $('.has-child>a').removeClass('active');
+        $('.has-child').children('ul').css('display', '');
+      }
+    }
+
+    $(window).on('resize', function () {
+      mediaQueriesWin();
+    });
+
+    $(window).on('load', function () {
+      mediaQueriesWin();
+    });
+  });
+</script>
 
 <style scoped></style>
