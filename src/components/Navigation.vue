@@ -27,7 +27,7 @@
   import $ from 'jquery';
 
   onMounted(() => {
-    function mediaQueriesWin() {
+    const mediaQueriesWin = () => {
       const width = $(window).width();
       if (width <= 768) {
         $('.has-child>a').off('click');
@@ -42,15 +42,11 @@
         $('.has-child>a').removeClass('active');
         $('.has-child').children('ul').css('display', '');
       }
-    }
+    };
 
-    $(window).on('resize', function () {
-      mediaQueriesWin();
-    });
+    $(window).on('resize', () => mediaQueriesWin());
 
-    $(window).on('load', function () {
-      mediaQueriesWin();
-    });
+    $(window).on('load', () => mediaQueriesWin());
   });
 </script>
 
